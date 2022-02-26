@@ -19,3 +19,12 @@ Ejecutar migraciones y seeders
 ```
 php artisan migrate --seed
 ```
+
+Usuarios de prueba
+```
+email: jorge@example.com pass: torres
+```
+
+```
+email: finesa@example.com pass: finapp
+```
