@@ -18,12 +18,12 @@ class UserRepository
         return $this->user->orderBy('name')->skip($skip)->take(10)->get();
     }
 
-    public function getById(string $id): User
+    public function getById(string $id): ?User
     {
         return $this->user->findOrFail($id);
     }
 
-    public function getByEmail(string $email): User
+    public function getByEmail(string $email): ?User
     {
         return $this->user->where('email', $email)->first();
     }

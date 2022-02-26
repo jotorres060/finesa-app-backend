@@ -17,12 +17,12 @@ class UserService
         return $this->repository->getAll($skip);
     }
 
-    public function getById(string $id): User
+    public function getById(string $id): ?User
     {
         return $this->repository->getById($id);
     }
 
-    public function getByEmail(string $email): User
+    public function getByEmail(string $email): ?User
     {
         return $this->repository->getByEmail($email);
     }

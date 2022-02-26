@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Product;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -15,4 +17,11 @@ class User extends Authenticatable
     protected $table = 'users';
     protected $fillable = ['name', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
+
+    // Relations
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
 }
