@@ -22,8 +22,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         try {
-            $skip = $request->input('skip');
-            $products = $this->productService->getAll($skip);
+            $products = $this->productService->getAll();
             return response()->json($products, 200);
         } catch (\Exception $ex) {
             return response()->json([
@@ -41,7 +40,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->only(['name', 'price']);
+            $data = $request->only(['name', 'price', 'image_url', 'state']);
             $products = $this->productService->save($data);
             return response()->json($products, 201);
         } catch (\Exception $ex) {
@@ -61,27 +60,9 @@ class ProductController extends Controller
     public function update(Product $product, Request $request)
     {
         try {
-            $data = $request->only(['name', 'price']);
+            $data = $request->only(['name', 'price', 'image_url', 'state']);
             $product = $this->productService->update($data, $product);
             return response()->json($product, 200);
-        } catch (\Exception $ex) {
-            return response()->json([
-                'error' => true
-            ], 500);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
-    {
-        try {
-            $this->productService->delete($product);
-            return response()->json([], 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'error' => true

@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('price');
-            $table->enum('state', ['true', 'false'])->default('true');
+            $table->string('image_url')->nullable();
+            $table->enum('state', ['active', 'inactive'])->default('active');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

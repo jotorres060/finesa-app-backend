@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\Product;
 
 class ProductRepository
@@ -15,9 +13,9 @@ class ProductRepository
         $this->product = $product;
     }
 
-    public function getAll($skip = 0)
+    public function getAll()
     {
-        return $this->product->orderByDesc('id')->skip($skip)->take(10)->get();
+        return $this->product->orderByDesc('id')->get();
     }
 
     public function getById(string $id): ?Product
@@ -27,19 +25,12 @@ class ProductRepository
 
     public function save(array $data): Product
     {
-        $data['user_id'] = Auth::user()->id;
-        $product = new $this->product;
-        return $product->create($data);
+        return $this->product::firstOrCreate($data);
     }
 
     public function update(array $data, Product $product): Product
     {
         $product->update($data);
         return $product;
-    }
-
-    public function delete(Product $product): void
-    {
-        $product->update(['state' => 'false']);
     }
 }
