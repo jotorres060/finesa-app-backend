@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Services\ProductService;
 use App\Models\Product;
+use App\Http\Requests\ProductImageRequest;
 
 class ProductController extends Controller
 {
@@ -63,6 +64,26 @@ class ProductController extends Controller
             $data = $request->only(['name', 'price', 'image_url', 'state']);
             $product = $this->productService->update($data, $product);
             return response()->json($product, 200);
+        } catch (\Exception $ex) {
+            return response()->json([
+                'error' => true
+            ], 500);
+        }
+    }
+
+    /**
+     * Store the image product.
+     *
+     * @param  \App\Http\Requests\ProductImageRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeImage(ProductImageRequest $request)
+    {
+        try {
+            $fullPath = $request->file('image')->store('public/products');
+            $path = str_replace('public/', '', $fullPath);
+
+            return response()->json($path, 200);
         } catch (\Exception $ex) {
             return response()->json([
                 'error' => true

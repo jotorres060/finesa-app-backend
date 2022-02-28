@@ -20,6 +20,11 @@ Ejecutar migraciones y seeders
 php artisan migrate --seed
 ```
 
+Crear enlace simbólico (este paso es importante para poder subir las imágenes)
+```
+php artisan storage:link
+```
+
 Usuarios de prueba
 ```
 email: jorge@example.com pass: torres

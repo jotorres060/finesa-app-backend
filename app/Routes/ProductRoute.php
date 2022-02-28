@@ -11,5 +11,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get($prefix, 'index');
         Route::post($prefix, 'store');
         Route::put($prefix .'/{product}', 'update');
+        Route::post($prefix .'/upload-image', 'storeImage');
     });
 });
